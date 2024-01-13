@@ -1,0 +1,71 @@
+digraph My_Root_Node{
+    graph[label="My Root Node" labelloc="t"]
+    subgraph cluster_System_Database_Container{
+        label="System Database Container"
+        labelloc="t"
+        color="#000000"
+        fontcolor="#000000"
+        style="dotted"
+        fontname="Courier"
+        fontsize=8
+        subgraph cluster_Inner_Storage{
+            label="Inner Storage"
+            labelloc="t"
+            color="#00FFFF"
+            fontcolor="#000000"
+            style=filled
+            fontname="Courier"
+            fontsize=8
+                Inner_PostgreSQL [label="Inner PostgreSQL" comment="None" color="#000000" fillcolor="#FFFFFF" fontcolor="#000000" shape="egg" style="filled" fontname="Arial" fontsize=10]
+        }
+    }
+    subgraph cluster_Outer_Database_Container{
+        label="Outer Database Container"
+        labelloc="t"
+        color="#000000"
+        fontcolor="#000000"
+        style="dotted"
+        fontname="Courier"
+        fontsize=8
+        subgraph cluster_Outer_Database{
+            label="Outer Database"
+            labelloc="t"
+            color="#00FF00"
+            fontcolor="#000000"
+            style=filled
+            fontname="Courier"
+            fontsize=8
+                Outer_PostgreSQL [label="Outer PostgreSQL" comment="None" color="#000000" fillcolor="#FFFFFF" fontcolor="#000000" shape="egg" style="filled" fontname="Arial" fontsize=10]
+        }
+    }
+    subgraph cluster_Downloader_Container{
+        label="Downloader Container"
+        labelloc="t"
+        color="#000000"
+        fontcolor="#000000"
+        style="dotted"
+        fontname="Courier"
+        fontsize=8
+        subgraph cluster_Downloader{
+            label="Downloader"
+            labelloc="t"
+            color="#FF00FF"
+            fontcolor="#000000"
+            style=filled
+            fontname="Courier"
+            fontsize=8
+                NATS_consumer_module [label="NATS consumer module" comment="None" color="#000000" fillcolor="#FFFFFF" fontcolor="#000000" shape="egg" style="filled" fontname="Arial" fontsize=10]
+                NATS_producer_module [label="NATS producer module" comment="None" color="#000000" fillcolor="#FFFFFF" fontcolor="#000000" shape="egg" style="filled" fontname="Arial" fontsize=10]
+                downloading_module [label="downloading module" comment="None" color="#000000" fillcolor="#FFFFFF" fontcolor="#000000" shape="egg" style="filled" fontname="Arial" fontsize=10]
+                storage_module [label="storage module" comment="None" color="#000000" fillcolor="#FFFFFF" fontcolor="#000000" shape="egg" style="filled" fontname="Arial" fontsize=10]
+        }
+    }
+    m660313a5b6cc4fa7af6f5cd3ef500724 [label = "message: 'SELECT * FROM data WHERE id = 1;'" shape="box" style="filled" fontname="Lucida Console" fontsize=8]
+	m660313a5b6cc4fa7af6f5cd3ef500729 [label = "message: data1" shape="box" style="filled" fontname="Lucida Console" fontsize=8]
+	
+	downloading_module -> m660313a5b6cc4fa7af6f5cd3ef500724 [label="1"]
+	m660313a5b6cc4fa7af6f5cd3ef500724 -> Outer_PostgreSQL [label="2"]
+	
+	Outer_PostgreSQL -> m660313a5b6cc4fa7af6f5cd3ef500729 [label="3"]
+	m660313a5b6cc4fa7af6f5cd3ef500729 -> downloading_module [label="4"]
+}

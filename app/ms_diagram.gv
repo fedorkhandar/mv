@@ -1,0 +1,40 @@
+digraph G {
+	node [color=white style=filled]
+	edge [color=blue style=dashed]
+	compound=true
+	rankdir=LR
+	subgraph cluster_0 {
+		node [color=white style=filled]
+		color=lightgrey style=filled
+		a0 -> a1
+		a1 -> a2
+		a2 -> a3
+		label="process #1"
+		subgraph cluster_11 {
+			node [style=filled]
+			color=green
+			c0 -> c1
+			c1 -> c2
+			c2 -> c3
+			label="sub process #1"
+		}
+	}
+	subgraph cluster_1 {
+		node [color=white style=filled]
+		color=blue
+		b0 -> b1
+		b1 -> b2
+		b2 -> b3
+		label="process #2"
+		color=lightgrey style=filled
+	}
+	start -> a0
+	start -> b0
+	a1 -> b3
+	b2 -> a3
+	a3 -> a0
+	a3 -> end
+	b3 -> end
+	start [shape=Mdiamond]
+	end [shape=Msquare]
+}

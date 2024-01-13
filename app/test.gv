@@ -1,0 +1,141 @@
+digraph r{
+    graph[label="Biplan24" labelloc="t"]
+    subgraph cluster_d1{
+        label="System Database Container"
+        labelloc="t"
+        color="#000000"
+        fontcolor="#000000"
+        style="dotted"
+        fontname="Courier"
+        fontsize=8
+        subgraph cluster_s1{
+            label="Inner Storage"
+            labelloc="t"
+            color="#00FFFF"
+            fontcolor="#000000"
+            style=filled
+            fontname="Courier"
+            fontsize=8
+                c1 [label="Inner\nPostgreSQL" comment="None" color="#000000" fillcolor="#FFFFFF" fontcolor="#000000" shape="egg" style="filled" fontname="Arial" fontsize=10]
+        }
+    }
+    subgraph cluster_d2{
+        label="Outer Database Container"
+        labelloc="t"
+        color="#000000"
+        fontcolor="#000000"
+        style="dotted"
+        fontname="Courier"
+        fontsize=8
+        subgraph cluster_s2{
+            label="Outer Database"
+            labelloc="t"
+            color="#00FF00"
+            fontcolor="#000000"
+            style=filled
+            fontname="Courier"
+            fontsize=8
+                c2 [label="Outer\nPostgreSQL" comment="None" color="#000000" fillcolor="#FFFFFF" fontcolor="#000000" shape="egg" style="filled" fontname="Arial" fontsize=10]
+        }
+    }
+    subgraph cluster_d3{
+        label="NATS Container"
+        labelloc="t"
+        color="#000000"
+        fontcolor="#000000"
+        style="dotted"
+        fontname="Courier"
+        fontsize=8
+        subgraph cluster_s3{
+            label="Message Broker"
+            labelloc="t"
+            color="#FF00FF"
+            fontcolor="#000000"
+            style=filled
+            fontname="Courier"
+            fontsize=8
+                c3 [label="NATS" comment="None" color="#000000" fillcolor="#FFFFFF" fontcolor="#000000" shape="egg" style="filled" fontname="Arial" fontsize=10]
+        }
+    }
+    subgraph cluster_d4{
+        label="Downloader Container"
+        labelloc="t"
+        color="#000000"
+        fontcolor="#000000"
+        style="dotted"
+        fontname="Courier"
+        fontsize=8
+        subgraph cluster_s8{
+            label="Downloader"
+            labelloc="t"
+            color="#FF00FF"
+            fontcolor="#000000"
+            style=filled
+            fontname="Courier"
+            fontsize=8
+                c12 [label="NATS\nconsumer\nmodule" comment="None" color="#000000" fillcolor="#FFFFFF" fontcolor="#000000" shape="egg" style="filled" fontname="Arial" fontsize=10]
+                c13 [label="NATS\nproducer\nmodule" comment="None" color="#000000" fillcolor="#FFFFFF" fontcolor="#000000" shape="egg" style="filled" fontname="Arial" fontsize=10]
+                c14 [label="downloading\nmodule" comment="None" color="#000000" fillcolor="#FFFFFF" fontcolor="#000000" shape="egg" style="filled" fontname="Arial" fontsize=10]
+                c15 [label="storage\nmodule" comment="None" color="#000000" fillcolor="#FFFFFF" fontcolor="#000000" shape="egg" style="filled" fontname="Arial" fontsize=10]
+        }
+    }
+    subgraph cluster_d5{
+        label="Analytics Container"
+        labelloc="t"
+        color="#000000"
+        fontcolor="#000000"
+        style="dotted"
+        fontname="Courier"
+        fontsize=8
+        subgraph cluster_s4{
+            label="Clusterizator"
+            labelloc="t"
+            color="#FF00FF"
+            fontcolor="#000000"
+            style=filled
+            fontname="Courier"
+            fontsize=8
+                c4 [label="NATS\nconsumer\nmodule" comment="None" color="#000000" fillcolor="#FFFFFF" fontcolor="#000000" shape="egg" style="filled" fontname="Arial" fontsize=10]
+                c5 [label="NATS\nproducer\nmodule" comment="None" color="#000000" fillcolor="#FFFFFF" fontcolor="#000000" shape="egg" style="filled" fontname="Arial" fontsize=10]
+                c6 [label="computational\nmodule" comment="None" color="#000000" fillcolor="#FFFFFF" fontcolor="#000000" shape="egg" style="filled" fontname="Arial" fontsize=10]
+                c7 [label="storage\nmodule" comment="None" color="#000000" fillcolor="#FFFFFF" fontcolor="#000000" shape="egg" style="filled" fontname="Arial" fontsize=10]
+        }
+        subgraph cluster_s6{
+            label="Classificator"
+            labelloc="t"
+            color="#FF00FF"
+            fontcolor="#000000"
+            style=filled
+            fontname="Courier"
+            fontsize=8
+                c8 [label="NATS\nconsumer\nmodule" comment="None" color="#000000" fillcolor="#FFFFFF" fontcolor="#000000" shape="egg" style="filled" fontname="Arial" fontsize=10]
+                c9 [label="NATS\nproducer\nmodule" comment="None" color="#000000" fillcolor="#FFFFFF" fontcolor="#000000" shape="egg" style="filled" fontname="Arial" fontsize=10]
+                c10 [label="computational\nmodule" comment="None" color="#000000" fillcolor="#FFFFFF" fontcolor="#000000" shape="egg" style="filled" fontname="Arial" fontsize=10]
+                c11 [label="storage\nmodule" comment="None" color="#000000" fillcolor="#FFFFFF" fontcolor="#000000" shape="egg" style="filled" fontname="Arial" fontsize=10]
+        }
+        subgraph cluster_s5{
+            label="Clusterizator Local Storage"
+            labelloc="t"
+            color="#FF00FF"
+            fontcolor="#000000"
+            style=filled
+            fontname="Courier"
+            fontsize=8
+        }
+        subgraph cluster_s7{
+            label="Classificator Local Storage"
+            labelloc="t"
+            color="#FF00FF"
+            fontcolor="#000000"
+            style=filled
+            fontname="Courier"
+            fontsize=8
+        }
+    }
+    m1 [label = "protocol: 'SQL', message: 'SELECT * FROM data WHERE id = 1'" shape="box" style="filled" fontname="Lucida Console" fontsize=8]
+    m2 [label = "protocol: 'SQL', message: 'data1'" shape="box" style="filled" fontname="Lucida Console" fontsize=8]
+    c14 -> m1
+    m1 -> c2
+    c2 -> m2
+    m2 -> c14
+}

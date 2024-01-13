@@ -1,0 +1,9 @@
+{
+    "containers":[
+        {"name":"d0", "label":"Manager"},
+        {"d1": "Storage"},
+        {"d2": "Outer DB"},
+        {"d3": "Broker"},
+        {"d4": "Analytics"}
+    ]
+}
